@@ -1,7 +1,7 @@
 # csharp-collection
 c#을 사용하며 자주쓰진 않았지만 꼭 기억하고싶은 내용들을 정리하려고 만든 레파지토리
 
- - ThreadBasic.cs
+- ThreadBasic.cs
 
   new Thread( 뒤에 () => {}); 를 붙이면 변수를 필요로 하는 메소드를 반복 실행할 수 있다.
   async를 붙일때는 {} 안에 await를 사용할 비동기 메소드가 있는 경우이다.
