@@ -18,15 +18,14 @@ using System.Net;
 */
 
 
-bool IsSuccess = false;
+bool isSuccess = false;
 var thread = new Thread(async () => {   
-                    while (!IsSuccess)
+                    while (!isSuccess)
                     {
-                        IsSuccess = await 계속돌릴메소드(변수1, 변수2, ...); 
-                        if (IsSuccess)
+                        isSuccess = await 계속돌릴메소드(변수1, 변수2, ...); 
+                        if (isSuccess)
                         {
-                            Console.Write($"all done, thread join()");
-                            return; // Environment.Exit(0); 콘솔의 경우고 응용프로그램이면 Application.Exit() - 맞죠?
+                            Console.Write($"all done.");
                         }
                         Console.Write($"after 1(sec) restart thread...");
                         Thread.Sleep(1000);
@@ -34,6 +33,13 @@ var thread = new Thread(async () => {
                 });
 
 thread.Start();
+while(!isSuccess){
+  Console.Write($"program running");
+  Thread.Sleep(5000);
+}
+
+
+/*
 bool anyAliveThreads = true;
 while (anyAliveThreads) {
    // Console.Write($"program running");
@@ -41,4 +47,5 @@ while (anyAliveThreads) {
     var runningThreads = Process.GetCurrentProcess().Threads.OfType<ProcessThread>();
     anyAliveThreads = runningThreads.Any(thread => thread.ThreadState == System.Diagnostics.ThreadState.Running);
 }
-thread.Join();
+*/
+
