@@ -25,7 +25,7 @@
             Log.Information($"threads[{currentIndex}] start");
             while (!isSuccess[currentIndex])
             {
-                isSuccess[currentIndex] = await 사용할 함수(변수1, 변수2, 변수[currentIndex],...);
+                isSuccess[currentIndex] = await 사용할 함수(변수1, 변수2, 배열1[currentIndex],...);
                 if (isSuccess[currentIndex])
                 {
                     Log.Information($"threads[{currentIndex}] done");
