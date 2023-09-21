@@ -15,7 +15,7 @@ public async Task<int> HTTPGet(타입1 변수1,...){
     if (response.StatusCode == HttpStatusCode.OK)
     {
       var responseContent = await response.Content.ReadAsStringAsync();
-      token = JsonConvert.DeserializeObject<받을타입model이 있다면 여기에>(responseContent);
+      var 받은변수 = JsonConvert.DeserializeObject<받을타입model이 있다면 여기에>(responseContent);
       Log.Information($"[{response.StatusCode}]{responseContent}");
       result = 1;
     }
