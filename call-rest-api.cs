@@ -7,6 +7,8 @@ public async Task<int> HTTPGet(타입1 변수1,...){
   string queryString=$"?변수1={변수1}&변수2={변수2}...";
 
   string reqeustUrl = $"{url}{queryString}";
+  // 이 위의 작업들은 Uri 클래스를 활용해도 좋더라구요!
+  
   try
   {
     HttpClient client = new();
