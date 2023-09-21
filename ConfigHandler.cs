@@ -38,6 +38,30 @@ class ConfigHandler
     }
 }
 
+// 설정 파일에 a:asdf,wqer,fr 꼴로 여러개를 입력받아 배열로 만드는 메소드
+public static string[] transformConfigData(string configString)
+{
+    string[] ConfigDataArr;
+    if (!string.IsNullOrEmpty(HandleConfiguration.configData[configString])
+        && HandleConfiguration.configData[configString].Contains(","))
+    {
+        ConfigDataArr = HandleConfiguration.configData[configString].Split(',');
+    }
+    else if (!string.IsNullOrEmpty(HandleConfiguration.configData[configString]))
+    {
+        ConfigDataArr = new string[1];
+        ConfigDataArr[0] = HandleConfiguration.configData[configString];
+    }
+    else
+    {
+        throw new Exception($"{configString} is null or Empty!");
+    }
+    return ConfigDataArr;
+}
+// Split() 을 편하게 쓰고자 배열로 만들었고, 
+// 필자가 작업시에는 해당정보가 없으면 프로그램이 돌아가면 안되는 경우가 보통이라서 null or empty일때 exception을 던지는 경우가 많다. 
+// 각자 사용하기 편한 자료형으로 만들면 될듯!
+
 //-------------------------------------------------------
 // Program.cs 
 ConfigHandler.ReadConfig(); 
