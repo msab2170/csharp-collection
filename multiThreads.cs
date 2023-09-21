@@ -4,6 +4,8 @@
   // 디테일한 thread 기초에 관한 설명은 threadBasic 참고 여기서는 멀티 스레드 환경에서 필요한 부분만 적음
 
     // 각 스레드와 스레드 성공여부를 반환할 배열 생성 (list든 뭐든 놓으면 됨)
+    var 사용할 갯 수 = 5;
+
     Thread[] threads = new Thread[사용할 갯 수];
     bool[] isSuccess = new bool[사용할 갯 수];
 
