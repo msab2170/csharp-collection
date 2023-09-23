@@ -24,7 +24,6 @@ public async Task<int> HTTPGet(타입1 변수1,...){  // 가장 단순한 Get �
     }
     else
     {
-      result = -1;
       throw new Exception($"response status code[{response.StatusCode}]");
     }   
   }
