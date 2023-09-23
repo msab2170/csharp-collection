@@ -13,7 +13,6 @@ public async Task<int> HTTPGet(타입1 변수1,...){  // 가장 단순한 Get �
   {
     HttpClient client = new();    // Header 관련도 곧 추가 예정
     HttpResponseMessage response = await client.GetAsync(reqeustUrl);  //requestUrl 경로로 Get 방식으로 request 후 response를 받음
-
     var responseContent = await response.Content.ReadAsStringAsync();    // 문자열로 받아온 responseBody     
     Log.Information($"[{response.StatusCode}]{responseContent}");
     
