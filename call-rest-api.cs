@@ -19,7 +19,7 @@ public async Task<int> HTTPGet(타입1 변수1,...){  // 가장 단순한 Get �
     if (response.StatusCode == HttpStatusCode.OK)  // 응답상태코드가 200이면
     {      
       result = 1;
-       var 받은변수 = JsonConvert.DeserializeObject<받을타입model이 있다면 여기에>(responseContent);  // 받아온 문자열이 제이슨 형태라면 Deserialize하여 타입변수에 넣을 수 있음
+      var 받은변수 = JsonConvert.DeserializeObject<받을타입model이 있다면 여기에>(responseContent);  // 받아온 문자열이 제이슨 형태라면 Deserialize하여 타입변수에 넣을 수 있음
       // 요청이 성공해야 원하는 형태의 데이터가 오기때문에 분기로 거른다음에 받아야함
     }
     else
