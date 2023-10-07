@@ -1,18 +1,15 @@
+HttpClient client = new("https://abcd.dcba.com");   
+
 public async Task<int> HTTPGet(타입1 변수1,...){  // 가장 단순한 Get 방식
   int result = 0;
 
-  string domain = "https://abcd.dcba.com";
   string endPoint = "/get/endpoint"; 
-  string url=$"{domain}{endPoint}";
   string queryString=$"?변수1={변수1}&변수2={변수2}...";
-
-  string reqeustUrl = $"{url}{queryString}";
-  // 이 위의 작업들은 Uri 클래스를 활용해도 좋더라구요!
   
   try
   {
-    HttpClient client = new();   
-    HttpResponseMessage response = await client.GetAsync(reqeustUrl);  //requestUrl 경로로 Get 방식으로 request 후 response를 받음
+    
+    HttpResponseMessage response = await client.GetAsync(endPoint);  //requestUrl 경로로 Get 방식으로 request 후 response를 받음
     var responseContent = await response.Content.ReadAsStringAsync();    // 문자열로 받아온 responseBody     
     Log.Information($"[{response.StatusCode}]{responseContent}");
     
