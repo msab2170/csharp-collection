@@ -1,3 +1,6 @@
+// 파일 계속 수정중 - 231007
+// HttpClient를 메소드 밖에서 선언해서 싱글톤 형태로 사용,(메모리를 많이 잡아 먹는 등 성능상의 이유로 매 메소드마다 선언하면 좋지 않다!)
+// 원래는 baseAddress 속성이있는데 보고 잠깐 쓰는거라 다음번에 시간 날때 제대로 수정해놓을 예정
 HttpClient client = new("https://abcd.dcba.com");   
 
 public async Task<int> HTTPGet(타입1 변수1,...){  // 가장 단순한 Get 방식
