@@ -1,3 +1,8 @@
+using Newtonsoft.Json;
+using Serilog;
+using System.Net;
+using System.Text;
+
 // HttpClient를 메소드 밖에서 선언해서 싱글톤 형태로 사용,(메모리를 많이 잡아 먹는 등 성능상의 이유로 매 메소드마다 선언하면 좋지 않다!)
 
 private static readonly Uri _Server = new("https://~~ 서버의 주소"); 
