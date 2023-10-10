@@ -8,6 +8,7 @@ private static readonly HttpClient _HttpClient = new()
 };
 
 
+// GET 방식
 public async Task<받은변수의 Model class> HTTPGet(클래스1 변수1,...){  // 가장 단순한 Get 방식
   string endPoint = "/get/endpoint"; 
   string queryString=$"?변수1={변수1}&변수2={변수2}...";
@@ -35,7 +36,9 @@ public async Task<받은변수의 Model class> HTTPGet(클래스1 변수1,...){ 
   return 받은변수;  
 }
 
-public async static Task<FolderResponse?> HTTPPost(클래스1 변수1,...)
+
+// POST 방식
+public async static Task<ResponseResult?> HTTPPost(클래스1 변수1,...)
 {
   Log.Information($"HTTPPost() start");  // 이건 꼭 찍을 필요없는데 다른 파일에서 설명했던 Serilog로 찍은 로그이고 메소드에서 입력받은 변수도 json형태처럼 보이게 찍기도 함
     string endpoint = $"/변수1/{변수1}/...";
