@@ -10,7 +10,8 @@ c#을 사용하며 기억해야 하는 내용들을 정리하려고 만든 레�
    필요 nuget package는 Loghandler.cs 내 기입
    LogHandler.cs 상단부를 하나 만들고
    하단 부를 실제 사용할 Program.cs에 적어서 사용
- 
+   자바에서 쓰던 log4j도 존재하는데 Serilog도 편해서 자주 쓰게됨
+   
    Log.Information($"쓸말 : {변수명}"); 형태로 사용가능 
  
    [Log.Verbose(), Log.Debug(), Log.Information(), Log.Warning(), Log.Error() 로그 단계 순서이며, 특정 이상 로그만 보이게 찍는 방법도 존재함]
