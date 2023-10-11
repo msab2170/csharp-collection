@@ -42,7 +42,7 @@ public async Task<받은변수의 Model class> HTTPGet(클래스1 변수1,...){ 
 }
 
 
-// POST 방식
+// POST 방식 (request body에 application/json)
 public async static Task<ResponseResult?> HTTPPost(클래스1 변수1,...)
 {
   Log.Information($"HTTPPost() start");  // 이건 꼭 찍을 필요없는데 다른 파일에서 설명했던 Serilog로 찍은 로그이고 메소드에서 입력받은 변수도 json형태처럼 보이게 찍기도 함
@@ -93,3 +93,34 @@ public async static Task<ResponseResult?> HTTPPost(클래스1 변수1,...)
     return responseResult;
 }
 
+
+// POST 방식(request body에 application/x-www-form-urlencoded)
+public async static Task<ResponseResult?> HTTPPost(클래스1 변수1,...)
+{
+  Log.Information($"HTTPPost() start");  // 이건 꼭 찍을 필요없는데 다른 파일에서 설명했던 Serilog로 찍은 로그이고 메소드에서 입력받은 변수도 json형태처럼 보이게 찍기도 함
+    string endpoint = $"/변수1/{변수1}/...";
+    string requestBody =$"a={a}&b={b}";
+
+    try
+    {
+        // 앞에쓴 헤더 생략      
+        HttpContent content = new StringContent(requestBody, Encoding.UTF8, "application/x-www-form-urlencoded");
+        HttpResponseMessage response = await _HttpClient.PostAsync(tokenEndpoint, content);          
+        var responseContent = await response.Content.ReadAsStringAsync();
+      
+        Log.Information($"[{response.StatusCode}]{responseContent}");  // 이 로그는 성공여부 확인전에 찍어주는게 좋은게 api 서버에서 내려주는 값이 무엇인지 로그를 통해서 확인하면 의도된 에러이거나 코드값인지 파악하기 좋음
+        if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.Created)
+        {
+            responseResult = JsonConvert.DeserializeObject<ResponseResult>(responseContent);
+        }
+    }
+    catch (Exception ex)
+    {
+        Log.Error(ex.ToString());
+    }
+    finally
+    {
+        Log.Information($"HTTPPost() Exit {{변수1: {변수1}, 변수2: {변수2}, ...}}");  //  json형태처럼 보이게 찍을때 이런형태를 쓰기도 하고 여기도 JsonConvert.SerializeObject를 쓰기도 함
+    }
+    return responseResult;
+}
