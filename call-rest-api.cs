@@ -23,8 +23,12 @@ public async Task<받은변수의 Model class> HTTPGet(클래스1 변수1,...){ 
     HttpResponseMessage response = await client.GetAsync(endPoint);  //requestUrl 경로로 Get 방식으로 request 후 response를 받음, _HttpClient에 BaseAddress를 넣어놓으면 endpoint만 입력해주면 된다.
     var responseContent = await response.Content.ReadAsStringAsync();    // 문자열로 받아온 responseBody     
     Log.Information($"[{response.StatusCode}]{responseContent}");
-    
-    if (response.StatusCode == HttpStatusCode.OK)  // 응답상태코드가 200이면
+
+      // 응답상태코드가 200이면 (응답코드별로 HttpStatusCode가 존재한다. api서버의 스펙에 맞춰서 분기를 타서 어떤 결과를 내릴지 결정하면된다. 
+      // 이 예제처럼 딱 성공했을때 외에는 프로그램 로직이 멈춰야하는 경우라면 exception을 던져주는 것도 방법이고 
+      // 실패시 특정값을 넣어주는것도 방법이며, 
+      // api서버에 응답코드별로 response 내용이 다르다면 그 값들을 활용하여 결과를 내려주는 것이 좋다.
+    if (response.StatusCode == HttpStatusCode.OK)  
     {      
       var 받은변수 = JsonConvert.DeserializeObject<받을타입model이 있다면 여기에>(responseContent);  // 받아온 문자열이 제이슨 형태라면 Deserialize하여 타입변수에 넣을 수 있음
       // 요청이 성공해야 원하는 형태의 데이터가 오기때문에 분기로 거른다음에 받아야함
