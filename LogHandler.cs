@@ -21,7 +21,7 @@ class LogHandler
     {
         today = DateTime.Now.ToString("yyyy-MM-dd");
         todayYMD = today.Split('-');
-        logFilePath = $"logs/{todayYMD[0]}/{todayYMD[0]}-{todayYMD[1]}/프로젝트명-log-.txt";
+        logFilePath = $"프로젝트명-logs/{todayYMD[0]}/{todayYMD[0]}-{todayYMD[1]}/프로젝트명-log-.txt";
     }
 }
 
@@ -31,11 +31,14 @@ class LogHandler
 using Serilog;
 
 LogHandler logHandler = new();    
-// 잘읽어보면 파악가능하지만 사실 아래 logFilePath 자리만 채워주면 된다, LogHandler 클래스는 로그 파일 경로를 일관되게 규격화하기 위한 조치로 만들었다.
+// 잘읽어보면 파악가능하지만 아래 "로그를 지정할 파일 경로" 자리만 채워주면 logHandler선언은 필요없다. 
+// LogHandler클래스는 로그 파일 경로를 일관되게 규격화하기 위한 조치로 만들었다. 
+// 그래서 실제로 사용할때는 LogHandler클래스의 생성자 내 "프로젝트명" 자리에 nameof를 이용해서 일관되게 프로젝트명이 들어갈 수 있도록 조치하고 있다.
 
 Log.Logger = new LoggerConfiguration()
-    //.WriteTo.Console()                         // Serilog.Sinks.Console를 설치한 경우 사용가능
-    .WriteTo.File(logHandler.logFilePath,        // Serilog.Sinks.File를 설치한 경우 사용가능
+    //.WriteTo.Console()                          // Serilog.Sinks.Console를 설치한 경우 사용가능
+    .WriteTo.File(                                // Serilog.Sinks.File를 설치한 경우 사용가능
+        logHandler.logFilePath,                   // 로그를 지정할 파일 경로 
         rollingInterval: RollingInterval.Day,
         retainedFileCountLimit: null,
         fileSizeLimitBytes: 50 * 1024 * 1024,
