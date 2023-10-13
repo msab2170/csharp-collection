@@ -30,7 +30,8 @@ class LogHandler
 
 using Serilog;
 
-LogHandler logHandler = new();
+LogHandler logHandler = new();    // 잘읽어보면 파악가능하지만 사실 아래 logFilePath 자리만 채워주면 된다, 로그 파일 경로를 일관되게 규격화하기 위한 조치로 만들었다.
+
 Log.Logger = new LoggerConfiguration()
     //.WriteTo.Console()                         // Serilog.Sinks.Console를 설치한 경우 사용가능
     .WriteTo.File(logHandler.logFilePath,        // Serilog.Sinks.File를 설치한 경우 사용가능
