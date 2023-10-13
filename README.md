@@ -70,7 +70,8 @@ c#을 사용하며 기억해야 하는 내용들을 정리하려고 만든 레�
          POST 이하는 비슷하므로 requestbody의 타입별로 작성하고 있다.
           - application/json
           - application/x-www-form-urlencoded
-        까지 밖에 작성은 안했는데 mulitpart/form-data까지는 다룰 예정이다.
+          - mulitpart/form-data
+  
  
 ------------------------------------------------------------------
 
