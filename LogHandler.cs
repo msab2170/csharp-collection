@@ -27,14 +27,16 @@ class LogHandler
 
 //-------------------------------------------------------
 // Program.cs 
-
 using Serilog;
 
 LogHandler logHandler = new();    
 // 잘읽어보면 파악가능하지만 아래 "로그를 지정할 파일 경로" 자리만 채워주면 logHandler선언은 필요없다. 
 // LogHandler클래스는 로그 파일 경로를 일관되게 규격화하기 위한 조치로 만들었다. 
 // 그래서 실제로 사용할때는 LogHandler클래스의 생성자 내 "프로젝트명" 자리에 nameof를 이용해서 일관되게 프로젝트명이 들어갈 수 있도록 조치하고 있다.
-// 프로젝트명은 메인메소드에 static으로 string 선언을 일괄적으로 하고 있다. assembly에서 가져오는 방법도 있지만... 그게 더 복잡한 것 같다.
+
+// 프로젝트명은 필요할때 그때그때 Assembly.GetEntryAssembly()?.GetName().Name 로 가져오거나, 
+// 메인메소드에 static string projectName = Assembly.GetEntryAssembly()?.GetName().Name;으로 선언해두고 가져오기도 하고,
+// 메인메소드에 static string으로 프로젝트명을 복사 붙여넣기해다가 선언하기도 한다. (static string prjectName = "프로젝트명";
 
 Log.Logger = new LoggerConfiguration()
     //.WriteTo.Console()                          // Serilog.Sinks.Console를 설치한 경우 사용가능
