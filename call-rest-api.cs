@@ -128,3 +128,52 @@ public async static Task<ResponseResult?> HTTPPost(클래스1 변수1,...)
     }
     return responseResult;
 }
+
+
+// POST 방식(request body에 multipart/form-data)
+public async static Task<받을 타입> HttpPost(클래스1 변수1,...)
+{               
+    var 받을변수 = new 받을타입();
+    string endpoint = $"/member/{member}/업로드";
+    var 요청변수 = new 요청타입();
+    
+    var boundary = "-----------------------" + DateTime.Now.Ticks.ToString();
+    try
+    {
+        // multipart/form-data 선언 후 boundary
+        using var requestContent = new MultipartFormDataContent(boundary);
+        requestContent.Headers.Remove("Content-Type");
+        requestContent.Headers.TryAddWithoutValidation("Content-Type", "multipart/form-data;boundary=" + boundary);
+
+        // json 데이터
+        var 요청변수json = JsonConvert.SerializeObject(요청변수, Formatting.None, new JsonSerializerSettings { DefaultValueHandling = DefaultValueHandling.Ignore });
+        var stringContent = new StringContent(요청변수json, Encoding.UTF8, "application/json");
+        stringContent.Headers.Add("Content-Disposition", "form-data; 필요한게 있다면 추가 ");
+        requestContent.Add(stringContent, "api 서버에서 받을 변수의 이름");
+
+        // file 데이터
+        string filePath="무언가 파일 경로가 있어야함";
+        var fileData = File.ReadAllBytes(filePath);
+        var streamContent = new StreamContent(new MemoryStream(fileData));
+        streamContent.Headers.Add("Content-Type", "application/octet-stream");
+        streamContent.Headers.Add("Content-Disposition", "form-data; 무언가 필요한게 있다면 추가 ");
+        requestContent.Add(streamContent, "서버에서 받을 변수명", fileName);
+
+        var response = await _HttpClient.PostAsync(endpoint, requestContent);
+        var responseContent = await response.Content.ReadAsStringAsync();
+
+        Log.Information($"[{response.StatusCode}]{responseContent}");
+        if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.Created) // 보통 올리는건 201 내려주니까 200번부분은 제거하는게 일반적이지만, api서버 스팩에 달렸다.
+        {
+            받을변수 = JsonConvert.DeserializeObject<받을타입?>(responseContent);
+        }
+        else
+        {
+            실패시 처리
+        }
+    }
+    catch (Exception ex)
+    {
+        Log.Error(ex.ToString());
+    }
+    return 받을변수;
