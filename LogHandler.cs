@@ -38,8 +38,7 @@ Log.Logger = new LoggerConfiguration()
         retainedFileCountLimit: null,
         fileSizeLimitBytes: 50 * 1024 * 1024,
         rollOnFileSizeLimit: true,
-        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level}] {Message}{NewLine}{Exception}")
-    
+        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level}] {Message}{NewLine}{Exception}")   
     .MinimumLevel.Information()    // 로그 최저레벨을 설정한다.                
     // .MinimumLevel.Is(Serilog.Events.LogEventLevel.Information) // 바로 위 .MinimumLevel.Information()를 제거하고 이 방법을 사용하면 설정 등으로 가져와서 최저레벨을 지정할 수도 있다.
     .CreateLogger();
