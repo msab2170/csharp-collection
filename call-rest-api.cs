@@ -53,6 +53,7 @@ public async static Task<ResponseResult?> HTTPPost(클래스1 변수1,...)
     string endpoint = $"/변수1/{변수1}/...";
     ResponseResult? responseResult = new();
 
+    // api에서 요청할 수 있는 모든 변수들을 모델에 기입해놓으면 그 다음번에 다른정보를 보낼때 모델 클래스만 보고도 참고할 수 있는 등 장점이 많다.
     var 요청변수 = new 요청클래스형태()
     {
         요청변수내변수 = new 요청클래스 내부에 프로퍼티()
@@ -62,6 +63,19 @@ public async static Task<ResponseResult?> HTTPPost(클래스1 변수1,...)
         }
     };
 
+    // 만일 직접 기입하고 싶다면 다음과 같이 해도 된다. 그러나 Model 클래스를 만들어서 위와같은 형태로 유지하는 것이 유지보수 측면에서 알아보기 쉽다.
+    // json형태로 string문자열을 직접 기입하는 방식이다.
+    // 이 경우 아래 var json요청변수 = JsonConvert.SerializeObject(요청변수, Formatting.None, new JsonSerializerSettings { DefaultValueHandling = DefaultValueHandling.Ignore }); 부분을 쓰지 않아야 한다.
+    // 왜냐하면 클래스를 string 문자열로 바꿔주는 부분이기 때문이다.
+    
+    /* 
+        var 요청변수 =
+            "{  " +
+                $"\"요청변수1\": \"{요청변수1}\"," +
+                $"\"요청변수2\": \"{요청변수2}\"" +
+            "}";
+    
+    */
     try
     {
         _HttpClient.DefaultRequestHeaders.Accept.Clear();
