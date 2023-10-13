@@ -28,8 +28,7 @@ class LogHandler
 //-------------------------------------------------------
 // Program.cs 
 
-using {솔루션명};
-using 
+using Serilog;
 
 LogHandler logHandler = new();
 Log.Logger = new LoggerConfiguration()
