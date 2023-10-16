@@ -17,7 +17,8 @@ c#을 사용하며 기억해야 하는 내용과 특정라이브러리 용법 �
         필요 nuget package는 Loghandler.cs 내 기입
         LogHandler.cs 상단부를 하나 만들고
         하단 부를 실제 사용할 Program.cs에 적어서 사용
-        자바에서 쓰던 log4j와 유사한 log4net도 존재하는데 Serilog도 편해서 자주 쓰게됨
+        자바에서 쓰던 log4j와 유사한 log4net도 존재하는데 이를 찾아볼 생각하기전에
+        사용하기 시작한 Serilog가 편해서 계속 사용하고 있음
         
         Log.Information($"쓸말 : {변수명}"); 형태로 사용가능
    
