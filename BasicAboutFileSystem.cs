@@ -71,3 +71,33 @@ static void MakeandDeleteFolder(){
     }
 }
 
+static void WorWithFiles() {
+    string directory = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.Personal),
+        "OutputFiles"
+    );
+    Directory.CreateDirectory(directory);
+    Log.Debug("make directory: " + directory);
+
+    string textFile = Path.Combine(directory, "Dummy.txt");
+    string backupFile = Path.Combine(directory, "Dummy.bak");
+
+    Console.WriteLine($"textFile:{textFile}, File.Exists(textFile): {File.Exists(textFile)}");
+    if(!File.Exists(textFile)){
+        StreamWriter textWriter = File.CreateText(textFile);
+        textWriter.WriteLine("text file write");
+        textWriter.Close();
+    }
+
+    File.Copy(sourceFileName: textFile, destFileName: backupFile, overwrite: true);
+    Log.Debug($"textFile:{textFile} copy to backupFile: {backupFile}");
+
+    File.Delete(textFile);
+    Log.Debug($"textFile:{textFile} deleted.");
+
+    StreamReader textReader = File.OpenText(backupFile);
+    Console.WriteLine(textReader.ReadToEnd());
+    textReader.Close();
+
+    File.Delete(backupFile);
+}
