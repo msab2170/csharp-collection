@@ -14,6 +14,7 @@ WorkWithDrives();
 MakeandDeleteFolder();
 WorWithFiles();
 
+
 // 이 부분은 설명보다는 직접 한번이라도 돌려보는게 좋을 것 같아 설명은 생략한다.
 static void OutputFileSystemInfo(){
     Log.Debug("{0} {1}", string.Format("{0, -80}", "Path.PathSeparator"), Path.PathSeparator);
@@ -34,6 +35,7 @@ static void OutputFileSystemInfo(){
         Environment.GetFolderPath(Environment.SpecialFolder.Personal));
 }
 
+
 // 마찬가지이다.
 static void WorkWithDrives()
 {
@@ -49,6 +51,8 @@ static void WorkWithDrives()
         }
     }
 }
+
+
 static void MakeandDeleteFolder(){
 
     // 파일 경로를 쓸때 /나 \를 쓸지말지 고민을 없애준다. 자주 쓰이니 초보자는 암기라도 하자
@@ -70,6 +74,7 @@ static void MakeandDeleteFolder(){
         Directory.Delete(path: newFolder, recursive: true);
     }
 }
+
 
 static void WorWithFiles() {
     string directory = Path.Combine(
