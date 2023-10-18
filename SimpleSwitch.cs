@@ -10,7 +10,7 @@ int Fibonacci(int index) =>
     1 => 0,
     2 => 1,
     _ => Fibonacci(index - 2) + Fibonacci(index - 1)
-};
+  };
 
 // 예제 2, switch-case 안에 switch
 string NumberOrdinal(int number){  // 간단예제로 2자리까지만으로 가정
