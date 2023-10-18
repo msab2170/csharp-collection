@@ -87,7 +87,7 @@ static void WorWithFiles() {
     string textFile = Path.Combine(directory, "Dummy.txt");
     string backupFile = Path.Combine(directory, "Dummy.bak");
 
-    Console.WriteLine($"textFile:{textFile}, File.Exists(textFile): {File.Exists(textFile)}");
+    Log.Debug($"textFile:{textFile}, File.Exists(textFile): {File.Exists(textFile)}");
     if(!File.Exists(textFile)){
         StreamWriter textWriter = File.CreateText(textFile);
         textWriter.WriteLine("text file write");
