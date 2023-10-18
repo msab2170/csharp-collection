@@ -12,7 +12,7 @@ Log.Logger = new LoggerConfiguration()
 OutputFileSystemInfo();
 WorkWithDrives();
 MakeandDeleteFolder();
-
+WorWithFiles();
 
 // 이 부분은 설명보다는 직접 한번이라도 돌려보는게 좋을 것 같아 설명은 생략한다.
 static void OutputFileSystemInfo(){
