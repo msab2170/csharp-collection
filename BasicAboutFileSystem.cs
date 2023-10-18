@@ -100,4 +100,8 @@ static void WorWithFiles() {
     textReader.Close();
 
     File.Delete(backupFile);
+
+    if(Directory.Exists(path: directory)){
+        Directory.Delete(path: directory, recursive: true);
+    }
 }
