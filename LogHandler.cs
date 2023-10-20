@@ -50,3 +50,10 @@ Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()    // 로그 최저레벨을 설정한다.                
     // .MinimumLevel.Is(Serilog.Events.LogEventLevel.Information) // 바로 위 .MinimumLevel.Information()를 제거하고 이 방법을 사용하면 설정 등으로 가져와서 최저레벨을 지정할 수도 있다.
     .CreateLogger();
+
+
+// 서식문자열의 사용방법
+// Console.WriteLine()에서는 {순서,글자너비 + 좌우 정렬여부} -> Console.WriteLine("{0,-10} | {1,-20}", "asdfsadfs", "test1string");
+// 방식으로 사용하지만 Serilog의 서식문자열 형식은 별도로 정해져있음
+// 순서가 아닌 아무런? 단어를 사용하고 쉼표(,) 앞뒤에 공백이 없어야만 함 (필자는 버릇처럼 띄어쓰기를 넣다가 꽤많은 출력실패를 경험하였음)
+Log.Information("| {Status,-10} | {Address,-30} | {RoundtripTime,-15} | {BufferLength,-20} |", "Status", "Address", "RoundTrip time", "Buffer size");
