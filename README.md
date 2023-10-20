@@ -33,7 +33,7 @@ c#을 사용하며 기억해야 하는 내용과 특정라이브러리 용법 �
         자바에서 쓰던 log4j와 유사한 log4net도 존재하는데 이를 찾아볼 생각하기전에
         사용하기 시작한 Serilog가 편해서 계속 사용하고 있음
         
-        Log.Information($"쓸말 : {변수명}"); 형태로 사용가능
+        Log.Information($"쓸말 : {변수명}"); 형태로 사용할 수 있으며 서식문자열도 사용이 가능
    
         // 아래는 로그 단계 순서
         [Log.Verbose(), Log.Debug(), Log.Information(), Log.Warning(), Log.Error() ]
