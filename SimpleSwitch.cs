@@ -4,7 +4,7 @@
 
 // switch-case문 말고 변수로 직접 넣는 switch
 
-// 예제 1, + 재귀하여 점화식으로 수열 만들기 - 너무 획기적이다. 미쳤다.
+// 예제 1, + 재귀하여 점화식으로 수열 만들기 - 너무 획기적이다. 미쳤다!
 int Fibonacci(int index) =>
   index switch {
     1 => 0,
