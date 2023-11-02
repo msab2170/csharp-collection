@@ -55,6 +55,7 @@ ThreadPool.SetMaxThreads(50, 10);  // 스레드풀 관리하는 함수인데 참
 
 bool[] IsSuccesses = new bool[사용할 갯 수];
 var countdownEvent = new CountdownEvent(사용할 갯 수);  // 스레드에 index를 부여하는 대신 돌아가는 스레드의 갯수를 채워 넣고  Parallel내에서 감소시킨다. 필수적요소는 아니나, 모든 동작이 완료했음을 캐치하기 위함이다.
+string str = "a,b,c,d,....";
 string[] arr = str.Split(',');
 
 Parallel.ForEach(arr, async (str, state, index) =>
@@ -79,3 +80,40 @@ Parallel.ForEach(arr, async (str, state, index) =>
 });
 countdownEvent.Wait();
 Log.Information($"All threads done.");
+
+//------------------------------------------그냥 task도 넣는다.
+
+var tasks = new List<Task>();
+bool[] IsSuccesses = new bool[사용할 갯 수];
+
+string str = "a,b,c,d,....";
+string[] arr = str.Split(',');  // 꼭 배열을 고집할필요는 없다... 첫 예제에서 계속 끌어쓰다보니 배열이 남은것....
+
+foreach (var aaa in arr)
+{
+    tasks.Add(Task.Run(async () =>
+    {
+        bool isSuccess = false;
+        Log.Information($"threads[{arr.IndexOf(aaa)}] start");
+
+        while (!isSuccess)
+        {
+            isSuccess = await 사용할 함수(변수1, 변수2, aaa, arr.IndexOf(aaa),...);
+            if (isSuccess)
+            {
+                Log.Information($"threads[{arr.IndexOf(aaa)}] done");
+            }
+            else
+            {
+                Log.Information($"after 1(sec) restart threads[{arr.IndexOf(aaa)}]...");
+                await Task.Delay(1000);
+            }
+        }
+    }));
+}
+
+await Task.WhenAll(tasks);
+
+
+
+
