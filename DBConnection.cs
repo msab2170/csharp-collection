@@ -53,3 +53,18 @@ while (reader.Read())
     인스턴스.프로퍼티2 = (string)reader["컬럼명2"],
   });
 }
+
+
+// 1-2. OLEDB - 쿼리 select/ insert,update,delete 사용법
+
+
+// 2. Sql - 보안이 강화됨에 따라 ssl 인증이 디폴트이다. 그래서 같은 db에 연결할때도 oledb로 연결하는 것과 connection문이 다르다.
+//          oledb에서는 provider를 적어줘야했는데 SqlConnection으로 연결할때는 
+//          provider를 안적어줘도 되지만 encrypt=false;trustServerCertificate=true를 적어줘야한다. ssl인증할때보다 보안이 취약해지지만 사실은 oledb가 그렇게 동작한다.
+// 2-1. Sql - 프로시저 사용법
+
+
+// 2-2. Sql - 쿼리 select/ insert,update,delete 사용법
+
+
+// 아직 적을지 고민중이지만 그외 sqlite, oracle등 도 감안중
