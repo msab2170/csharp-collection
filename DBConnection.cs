@@ -3,6 +3,9 @@
 // 사용 db나 연결문자열 별로 사용해야하는 Connection, Command 관련 클래스가 조금씩다르다.
 // db 연결자체를 적으려고 한것이라 IEnumerable이나 IEnumerator로 받진 않았다.
 
+using System.Data;
+using System.Data.OleDb;  // 참고로 OleDbConnection의 경우 버전 몇부터인지 까먹었는데, 최근버전에는 기본적으로 제공하고 있지는 않아 nuget으로 받아야한다.
+
 // 1. OLEDB
 // 1-1. OLEDB - 프로시저 사용법
 
@@ -26,10 +29,13 @@ using OleDbCommand command = new OleDbCommand(storedProcedure, connection);
 command.CommandType = CommandType.StoredProcedure;
 command.Parameters.AddWithValue("@프로시저 내 변수명", 넣을 값); // 변수를 넣으려거든 사용하시오!
 
-// 바로 아래는 insert delete update
-// int mustBe1 = command.ExecuteNonQuery();
+// 바로 아래는 insert delete update 시의 성공여부를 받아옴, 
+// 영향이 가해진 행의 갯수만큼 반환하기 때문에 프로시저 내에 여러 행에 쿼리를 날린다면 갯수를 체크해서 트랜젝션을 걸어주는게 좋다.
+// int successCount = command.ExecuteNonQuery();
  
-// 아래는 셀렉문, 하나의 테이블값을 가져올때 사용했던 것인고 두개 이상은 table로 받는 것이 좋다.
+// 아래는 셀렉문, 하나의 테이블값을 가져올때 사용했던 것이다. 두개 이상은 table로 받는것이 나을 것이다, 
+// 다만 나중에 성능을 고려해서 IEnumerable<T>로 yield return 할때는 table-row 또는 reader 중에서 필자는 reader가 편하더라...
+
 using OleDbDataReader reader = command.ExecuteReader();
 while (reader.Read())
 {
