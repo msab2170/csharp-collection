@@ -34,9 +34,17 @@ command.Parameters.AddWithValue("@프로시저 내 변수명", 넣을 값); // �
 // int successCount = command.ExecuteNonQuery();
  
 // 아래는 셀렉문, 하나의 테이블값을 가져올때 사용했던 것이다. 두개 이상은 table로 받는것이 나을 것이다, 
-// 다만 나중에 성능을 고려해서 IEnumerable<T>로 yield return 할때는 table-row 또는 reader 중에서 필자는 reader가 편하더라...
+// 다만 나중에 성능을 고려해서 IEnumerable<T>로 yield return 할때는 reader로 주로 사용해서 reader를 남겼다.
 
 using OleDbDataReader reader = command.ExecuteReader();
+//  dataTable.Load(reader); // 테이블 받는방법 이건 써본적은 없다! - 참고로 [ DataTable dataTable = new DataTable(); ] 이것을 적어도 읽기전에 선언해야 받아올 수 있다.
+// table로 받는 방법 2 - using OleDbDataReader reader = command.ExecuteReader(); 문장을 지우고 사용해야한다.
+/*
+ OleDbDataAdapter adapter = new OleDbDataAdapter(query, connection);
+ adapter.Fill(dataTable);
+*/
+// select문이 여러개 담겨있다면 DataSet에 adapter.Fill(dataSet); 하면 된다.
+
 while (reader.Read())
 {
   // 이 부분은 세가지 정도가 있다. 
