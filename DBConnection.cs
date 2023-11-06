@@ -80,5 +80,8 @@ while (reader.Read())
 
 // 2-2. Sql - 쿼리 select/ insert,update,delete 사용법
 
+string connectionString = "연결문자열이다."; // 웹의 경우 GetConnectionString이라던지 다른 프로젝트면 config에서 읽어오거나 복호화는 각자...
+
+
 
 // 아직 적을지 고민중이지만 그외 sqlite, oracle등 도 감안중
