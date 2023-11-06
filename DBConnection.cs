@@ -81,7 +81,17 @@ while (reader.Read())
 // 2-2. Sql - 쿼리 select/ insert,update,delete 사용법
 
 string connectionString = "연결문자열이다."; // 웹의 경우 GetConnectionString이라던지 다른 프로젝트면 config에서 읽어오거나 복호화는 각자...
+using SqlConnection connection = new(connectionString);
+string sql = "";
+SqlCommand command = new(sql, connection);
+command.Parameters.AddWithValue("@쿼리내변수", 쿼리내변수에 입력할 );
+connection.Open();
+SqlDataReader reader = command.ExecuteReader(); // select문 시
 
-
+// int successCount = command.ExecuteNonQuery(); // insert, update, delete 시이며, 트랜잭션의 경우도 OleDb에서 명시한 방법 중 클래스명만 OleDb -> Sql로 수정하면 된다.
+//(뒤는 OleDb와 동일)
+// 사실상 OleDb의 각 클래스명을 Sql로 변환하면 된다, 
+// 둘의 "문법적인" 차이는 변수에 넣을때 OleDb는 ?로 넣고 ?의 순서대로 @p1,@p2,... 이런식으로 입력하는 것이고
+// Sql은 @변수명 으로 입력한다는 것 정도이다.
 
 // 아직 적을지 고민중이지만 그외 sqlite, oracle등 도 감안중
