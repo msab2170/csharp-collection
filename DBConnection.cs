@@ -70,13 +70,25 @@ while (reader.Read())
 
 
 // 1-2. OLEDB - 쿼리 select/ insert,update,delete 사용법
-
+/*
+ 위 1-1 예제에서 command.CommandType = CommandType.StoredProcedure;를 제외해준뒤
+ 
+ string connectionString = "연결문자열이다.";
+ using var connection = new OleDbConnection(connectionString);
+ string sql = @"select * from tableA where a_column = ? and b_column = ?";
+ connection.Open();
+ command.Parameters.AddWithValue("@p1", 첫번째 변수);
+ command.Parameters.AddWithValue("@p2", 두번째 변수);
+ ...
+ 
+ 으로 사용하면된다. 변수를 입력할때 차이를 유의하면 된다.
+*/
 
 // 2. Sql - 보안이 강화됨에 따라 ssl 인증이 디폴트이다. 그래서 같은 db에 연결할때도 oledb로 연결하는 것과 connection문이 다르다.
 //          oledb에서는 provider를 적어줘야했는데 SqlConnection으로 연결할때는 
 //          provider를 안적어줘도 되지만 encrypt=false;trustServerCertificate=true를 적어줘야한다. ssl인증할때보다 보안이 취약해지지만 사실은 oledb가 그렇게 동작한다.
 // 2-1. Sql - 프로시저 사용법
-
+// 1-1에서 클래스명들 내 "OleDb"를 Sql로 변경하면 동일하게 작동한다.
 
 // 2-2. Sql - 쿼리 select/ insert,update,delete 사용법
 
