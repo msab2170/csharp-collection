@@ -47,7 +47,7 @@ public async Task<받은변수의 Model class> HTTPGet(클래스1 변수1,...){ 
 
 
 
-// POST 방식 (request body에 application/json)
+// POST 방식 (request body에 application/json 1번째)
 public async static Task<ResponseResult?> HTTPPost(클래스1 변수1,...)
 {
   Log.Information($"HTTPPost() start");  // 이건 꼭 찍을 필요없는데 다른 파일에서 설명했던 Serilog로 찍은 로그이고 메소드에서 입력받은 변수도 json형태처럼 보이게 찍기도 함
@@ -111,6 +111,34 @@ public async static Task<ResponseResult?> HTTPPost(클래스1 변수1,...)
     }
     return responseResult;
 }
+
+
+
+// POST 방식 (request body에 application/json 2번째) - Post/Patch/Delete는 -AsJsonAsync라는 함수가 있다.(ex - PostAsJsonAsync())
+public async static Task<ResponseResult?> HTTPPost(엔드포인트용클래스 엔드포인트용인스턴스,클래스 인스턴스명)
+{
+    _HttpClient.DefaultRequestHeaders.Accept.Clear();
+    _HttpClient.DefaultRequestHeaders.Clear();
+    
+    string endpoint = $"/엔드포인트용인스턴스.필드1/{엔드포인트용인스턴스.필드1}/...";
+    
+    try
+    {
+        HttpResponseMessage response = await _HttpClient.PostAsJsonAsync(
+                                            requestUri: endpoint,
+                                            value: 인스턴스명,
+                                            options: new JsonSerializerOptions{ DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull}
+                                        ); 
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadFromJsonAsync<ResponseResult>();  
+        // 로그를 찍으려면 분리하는 것도 방법이고, 
+        // test시에는 Deserialize단계에서 에러가 났을 경우에는 ReadAsStringAsync를 여전히 활용하는 것이 좋다.
+    }
+    catch(Exception e){
+        Log.Error($"{e}");
+    }
+}
+
 
 
 // POST 방식(request body에 application/x-www-form-urlencoded 1번째)
