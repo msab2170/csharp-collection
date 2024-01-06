@@ -46,6 +46,7 @@ public async Task<받은변수의 Model class> HTTPGet(클래스1 변수1,...){ 
 }
 
 
+
 // POST 방식 (request body에 application/json)
 public async static Task<ResponseResult?> HTTPPost(클래스1 변수1,...)
 {
@@ -112,7 +113,7 @@ public async static Task<ResponseResult?> HTTPPost(클래스1 변수1,...)
 }
 
 
-// POST 방식(request body에 application/x-www-form-urlencoded)
+// POST 방식(request body에 application/x-www-form-urlencoded 1번째)
 public async static Task<ResponseResult?> HTTPPost(클래스1 변수1,...)
 {
   Log.Information($"HTTPPost() start");  // 이건 꼭 찍을 필요없는데 다른 파일에서 설명했던 Serilog로 찍은 로그이고 메소드에서 입력받은 변수도 json형태처럼 보이게 찍기도 함
@@ -141,6 +142,48 @@ public async static Task<ResponseResult?> HTTPPost(클래스1 변수1,...)
         Log.Information($"HTTPPost() Exit {{변수1: {변수1}, 변수2: {변수2}, ...}}");  //  json형태처럼 보이게 찍을때 이런형태를 쓰기도 하고 여기도 JsonConvert.SerializeObject를 쓰기도 함
     }
     return responseResult;
+}
+
+// POST 방식(request body에 application/x-www-form-urlencoded 2번째) - 1번째 식과 차이를 생각해보고 자신에게 맞는 스타일로 쓰도록하자.
+public async static Task<ResponseResult?> HTTPPost(클래스1 변수1,...)
+{
+    ResponseResult rr = new();
+    
+    _HttpClient.DefaultRequestHeaders.Accept.Clear();
+    _HttpClient.DefaultRequestHeaders.Clear();
+    
+    string endpoint = $"/변수1/{변수1}/...";
+    var requestBody = new Dictionary<string, string>
+    {
+        { "변수명11", 변수11 },
+        { "변수명12", 변수12 },
+        { "변수명13", 변수13 },
+        ...
+    };
+
+    try
+    {    
+        HttpResponseMessage response = await _HttpClient.PostAsync(tokenEndpoint, new FormUrlEncodedContent(requestData));
+        var responseContent = await response.Content.ReadAsStringAsync();    
+        
+        // 로그로 찍지 않을꺼라면 응답 성공시에 var responseContent = await response.Content.ReadAsStringAsync(); 를 쓰지 않고 
+        // 바로 json deserailize하도록 할 수도 있다.
+        
+        Log.Information($"[{response.StatusCode}]{responseContent.Trim()}"); 
+        if (response.StatusCode == HttpStatusCode.OK)
+        {
+            rr = JsonSerializer.Deserialize<ResponseResult>(responseContent) ?? throw new Exception($"형변환 실패");
+        }
+        else
+        {
+            throw new Exception($"fail");
+        }
+    }
+    catch (Exception ex)
+    {
+        throw;
+    }
+    return rr;    
 }
 
 
@@ -191,3 +234,7 @@ public async static Task<받을 타입> HttpPost(클래스1 변수1,...)
         Log.Error(ex.ToString());
     }
     return 받을변수;
+
+
+
+    // 20240106 - 최근에는 System.Text.Json의 이해도를 조금 높여 
