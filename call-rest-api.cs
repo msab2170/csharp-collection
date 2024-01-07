@@ -121,13 +121,15 @@ public async static Task<ResponseResult?> HTTPPost(엔드포인트용클래스 �
     _HttpClient.DefaultRequestHeaders.Clear();
     
     string endpoint = $"/엔드포인트용인스턴스.필드1/{엔드포인트용인스턴스.필드1}/...";
-    
+
+    // newtonsoft.Json을 더이상 쓰지 않는데 1번째 방법 조차도 System.Text.Json 라이브러리 내에서 처리한다. 
+    // (시리얼라이즈: JsonConverter.Serialize(), 디시리얼라이즈: JsonConverter.Deserialize())
     try
     {
         HttpResponseMessage response = await _HttpClient.PostAsJsonAsync(
                                             requestUri: endpoint,
                                             value: 인스턴스명,
-                                            options: new JsonSerializerOptions{ DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull}
+                                            options: new JsonSerializerOptions{ DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull} // int나 bool값 등 기본값이 있는 친구들때문에 WhenWritingDefault를 더 많이 사용하였다.
                                         ); 
         response.EnsureSuccessStatusCode();
         return await response.Content.ReadFromJsonAsync<ResponseResult>();  
