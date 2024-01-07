@@ -88,7 +88,13 @@ public async static Task<ResponseResult?> HTTPPost(클래스1 변수1,...)
       
         // MS 공식에는 Json 변환 + PostAsync 를 PostAsJsonAsync로 쓸 수 있다고 나오는데 여러번 시도 했는데 잘안되서 다 씀 ㅠㅠ
         // 그래도 이렇게 다쓰는 것도 다른 형식과 비교할때 편하긴 함
-      
+
+        // 2024-01-07 
+        // PostAsJsonAsync함수는 System.Text.Json이 기반이기 떄문에 옵션함수를 JsonSerializerOptions를 사용하면 된다.
+        // 로그를 찍으려고 PostAsync를 찍는 분들도 계시겠지만 
+        // PostAsJsonAsync를 이용할 경우에는 대부분 ToString()을 override해서 사용하면 PostAsync를 사용할 일이 많이 없다.
+        // 아래 2번째에 PstAsJsonAsync에 대한 설명을 기입했다.
+        
         var json요청변수 = JsonConvert.SerializeObject(요청변수, Formatting.None, new JsonSerializerSettings { DefaultValueHandling = DefaultValueHandling.Ignore });
         HttpContent httpContent = new StringContent(json요청변수, Encoding.UTF8, "application/json");
         HttpResponseMessage response = await _HttpClient.PostAsync(endpoint, httpContent);  
@@ -122,7 +128,7 @@ public async static Task<ResponseResult?> HTTPPost(엔드포인트용클래스 �
     
     string endpoint = $"/엔드포인트용인스턴스.필드1/{엔드포인트용인스턴스.필드1}/...";
 
-    // newtonsoft.Json을 더이상 쓰지 않는데 1번째 방법 조차도 System.Text.Json 라이브러리 내에서 처리한다. 
+    // newtonsoft.Json을 더이상 쓰지 않는다. 1번째 방법 조차도 System.Text.Json 라이브러리 내에서 처리한다.(내장이기 때문에 Nuget등 처리할 필요가 없기 때문이다.) 
     // (시리얼라이즈: JsonConverter.Serialize(), 디시리얼라이즈: JsonConverter.Deserialize())
     try
     {
